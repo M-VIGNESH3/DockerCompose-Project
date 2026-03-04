@@ -11,19 +11,18 @@ services:
     networks:
       - shared
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/AFF-Docker
+      - MONGO_URI=mongodb://flower-db:27017/AFF-Docker
       - PORT=3015
       - SESSION_SECRET=your-secret-key
 
   flower-db:
-    image: mongo
+    image: mongo:6
     container_name: d
-    build: flowe-web
     networks:
       - shared
     volumes:
-      - data1:/var/lib/data1
-
+      - data1:/data/db
+    
 
 volumes:
   data1: {}
