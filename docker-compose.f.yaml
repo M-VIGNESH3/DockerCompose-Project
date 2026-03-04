@@ -1,9 +1,9 @@
-name: flower-stack  # optional project name (Compose V2)
+name: flower-stack
 
 services:
   flower-web:
     image: vignesh8386/flower-web
-    # container_name: flower-web  # optional; consider removing to avoid conflicts
+    # container_name: flower-web   # optional; consider removing to avoid name conflicts
     ports:
       - "86:3015"
     volumes:
@@ -20,4 +20,3 @@ volumes:
 
 networks:
   shared: {}
-``
