@@ -4,7 +4,7 @@ services:
   flower-web:
     image: vignesh8386/flower-web:latest
     # container_name: flower-web  # optional; better to omit to avoid collisions
-    container_name: f
+    container_name: flow
     ports:
       - "86:3015"
     volumes:
