@@ -1,27 +1,36 @@
-version: '3.8'
+name: retail-stack
 
 services:
   re:
     image: vignesh8386/retail:latest
-    container_name: re
+    # container_name: re  # avoid fixed names unless necessary
     ports:
       - "85:3000"
     volumes:
       - data2:/var/lib/data2
     networks:
       - shared2
-
-    environment:
-      - .env
+    env_file:
+      - .env   # <-- this loads key=value lines from a file
+    depends_on:
+      - flow-db
 
   flow-db:
-    image: mysql
-    container_name: rdb
+    image: mysql:8.0
+    # container_name: rdb  # avoid fixed names unless necessary
     networks:
       - shared2
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: retaildb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 123
     volumes:
-      - data2:/var/lib/data2
+      - data2:/var/lib/mysql     
     
+    ports:
+      - "3306:3306"
+
 volumes:
   data2: {}
 
