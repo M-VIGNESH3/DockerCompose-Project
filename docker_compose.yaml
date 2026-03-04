@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  flower-app-web:
+    image: vignesh8386/flower-web:latest
+    container_name: flower-app
+    ports:
+      "3016:3015"
+  
+  java-app-web:
+    image: muralisocial123/transcation-image:v1.1.0
+    container_name: transcation
+    ports:
+      8081:8080
+
+  web-app:
+    image: muralisocial123/ey-cart:v1.1.0
+    container_name: cart
+    ports:
+      3001:3000
+
+  fitness-web:
+    image: muralisocial123/ust-practice-fitness:v1.1.0
+    container_name: fitness
+    ports:
+      5001:5000
