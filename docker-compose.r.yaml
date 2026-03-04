@@ -3,7 +3,7 @@ version: '3.8'
 services:
   re:
     image: vignesh8386/retail:latest
-    container_name: re
+    container_name: re2
     ports:
       - "85:3000"
     volumes:
