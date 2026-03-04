@@ -1,25 +1,39 @@
-version: '3.8'
- 
-services:
-  flower-app-web:
-    image: suwetha07/flowerimage:latest
-    container_name: flowerimage
-    ports:
-      - "3016:3015"
-    environment:
-      - MONGO_URL=mongodb://mongo:27017/flowerdb
-    depends_on:
-      - mongo
- 
-  mongo:
-    image: mongo:latest
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
- 
-volumes:
-  mongo-data:
+name: flower-stack
 
- 
+services:
+  flower-web:
+    image: vignesh8386/flower-web:latest
+    # container_name: flower-web  # optional; better to omit to avoid collisions
+    container_name: f
+    ports:
+      - "86:3015"
+    volumes:
+      - data1:/var/lib/data1
+    networks:
+      - shared
+    environment:
+      # Use the service name 'flower-db' as the host since it's in the same Compose project/network
+      - MONGO_URI=mongodb://flower-db:27017/AFF-Docker
+      - PORT=3015
+      - SESSION_SECRET=your-secret-key
+
+  flower-db:
+    image: mongo:6
+    container_name: db
+    # container_name: flower-db  # optional; better to omit
+    networks:
+      - shared
+    volumes:
+      - data1:/data/db
+    # Optional: set Mongo options (uncomment if needed)
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=root
+    #   - MONGO_INITDB_ROOT_PASSWORD=example
+    # ports:
+    #   - "27017:27017"  # only if you want to expose Mongo to the host
+
+volumes:
+  data1: {}
+
+networks:
+  shared: {}
