@@ -1,31 +1,25 @@
-name: flower-stack
-
+version: '3.8'
+ 
 services:
-  flower-web:
-    image: vignesh8386/flower-web
-    container_name: flower-web  
+  flower-app-web:
+    image: suwetha07/flowerimage:latest
+    container_name: flowerimage
     ports:
-      - "86:3015"
-    volumes:
-      - data1:/var/lib/data1
-    networks:
-      - shared
+      - "3016:3015"
     environment:
-      - MONGO_URI=mongodb://flower-db:27017/AFF-Docker
-      - PORT=3015
-      - SESSION_SECRET=your-secret-key
-
-  flower-db:
-    image: mongo:6
-    container_name: d
-    networks:
-      - shared
+      - MONGO_URL=mongodb://mongo:27017/flowerdb
+    depends_on:
+      - mongo
+ 
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
     volumes:
-      - data1:/data/db
-    
-
+      - mongo-data:/data/db
+ 
 volumes:
-  data1: {}
+  mongo-data:
 
-networks:
-  shared: {}
+ 
