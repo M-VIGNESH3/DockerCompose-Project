@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  re:
+    image: vignesh8386/retail:latest
+    container_name: re
+    ports:
+      - "85:3000"
+    volumes:
+      - data2
+    networks:
+      - shared2
+
+    environment:
+      - .env
+
+  flow-db:
+    image: mysql
+    container_name: rdb
+    network:
+      - shared2
+    volumes:
+      - data2
+    
+volumes:
+  data2: {}
+
+networks:
+  shared2: {}
