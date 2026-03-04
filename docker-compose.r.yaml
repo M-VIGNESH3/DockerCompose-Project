@@ -10,7 +10,7 @@ services:
       - data2:/var/lib/data2
     networks:
       - shared2
-    env_file:
+    environment:
       - .env   
     depends_on:
       - flow-db
