@@ -1,9 +1,9 @@
-version: '3.8'
+name: flower-stack  # optional project name (Compose V2)
 
 services:
   flower-web:
     image: vignesh8386/flower-web
-    container_name: flower-web
+    # container_name: flower-web  # optional; consider removing to avoid conflicts
     ports:
       - "86:3015"
     volumes:
@@ -12,8 +12,12 @@ services:
       - shared
     environment:
       - MONGO_URI=mongodb://mongodb:27017/AFF-Docker
-
       - PORT=3015
       - SESSION_SECRET=your-secret-key
-    
-    
+
+volumes:
+  data1: {}
+
+networks:
+  shared: {}
+``
