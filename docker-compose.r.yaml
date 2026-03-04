@@ -22,7 +22,7 @@ services:
     volumes:
       - data2
     
-volume:
+volumes:
   data2: {}
 
 networks:
