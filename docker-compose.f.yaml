@@ -3,7 +3,7 @@ name: flower-stack
 services:
   flower-web:
     image: vignesh8386/flower-web
-    # container_name: flower-web   # optional; consider removing to avoid name conflicts
+    container_name: flower-web  
     ports:
       - "86:3015"
     volumes:
@@ -14,6 +14,16 @@ services:
       - MONGO_URI=mongodb://mongodb:27017/AFF-Docker
       - PORT=3015
       - SESSION_SECRET=your-secret-key
+
+  flower-db:
+    image: mongo
+    container_name: d
+    build: flowe-web
+    networks:
+      - shared
+    volumes:
+      - data1:/var/lib/data1
+
 
 volumes:
   data1: {}
