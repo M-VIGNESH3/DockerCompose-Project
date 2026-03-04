@@ -3,7 +3,7 @@ name: retail-stack
 services:
   re:
     image: vignesh8386/retail:latest
-    # container_name: re  # avoid fixed names unless necessary
+    container_name: re
     ports:
       - "85:3000"
     volumes:
