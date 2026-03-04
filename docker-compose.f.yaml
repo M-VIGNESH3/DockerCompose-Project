@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  flower-web:
+    image: vignesh8386/flower-web
+    container_name: flower-web
+    ports:
+      - "86:3015"
+    volumes:
+      - data1:/var/lib/data1
+    networks:
+      - shared
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/AFF-Docker
+
+      - PORT=3015
+      - SESSION_SECRET=your-secret-key
+    
+    
