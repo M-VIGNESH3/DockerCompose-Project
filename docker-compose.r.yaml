@@ -17,7 +17,7 @@ services:
   flow-db:
     image: mysql
     container_name: rdb
-    network:
+    networks:
       - shared2
     volumes:
       - data2
