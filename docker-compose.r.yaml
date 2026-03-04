@@ -3,7 +3,7 @@ name: retail-stack
 services:
   re:
     image: vignesh8386/retail:latest
-    container_name: re
+    container_name: re2
     ports:
       - "85:3000"
     volumes:
@@ -11,13 +11,13 @@ services:
     networks:
       - shared2
     env_file:
-      - .env   # <-- this loads key=value lines from a file
+      - .env   
     depends_on:
       - flow-db
 
   flow-db:
     image: mysql:8.0
-    # container_name: rdb  # avoid fixed names unless necessary
+    container_name: rdb2
     networks:
       - shared2
     environment:
