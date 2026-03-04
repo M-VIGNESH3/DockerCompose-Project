@@ -21,6 +21,10 @@ services:
       - db
     networks:
       - shared2
+    env_file:
+      - .env   
+    depends_on:
+      - flow-db
 
   db:
     image: mysql:8.0
