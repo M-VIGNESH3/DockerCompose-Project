@@ -7,7 +7,7 @@ services:
     ports:
       - "85:3000"
     volumes:
-      - data2
+      - data2:/var/lib/data2
     networks:
       - shared2
 
@@ -20,7 +20,7 @@ services:
     networks:
       - shared2
     volumes:
-      - data2
+      - data2:/var/lib/data2
     
 volumes:
   data2: {}
