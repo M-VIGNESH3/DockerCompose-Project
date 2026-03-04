@@ -1,38 +1,50 @@
-name: retail-stack
+name: retail-inventory
 
 services:
-  re:
+  app:
     image: vignesh8386/retail:latest
-    container_name: re2
+    container_name: re
+    # If you build from the repo instead of using the image, replace with:
+    # build: .
     ports:
       - "85:3000"
-    volumes:
-      - data2:/var/lib/data2
-    networks:
-      - shared2
-    env_file:
-      - .env   
-    depends_on:
-      - flow-db
-
-  flow-db:
-    image: mysql:8.0
-    container_name: rdb2
-    networks:
-      - shared2
     environment:
-      MYSQL_ROOT_PASSWORD: 123
+      # Match the names your app expects; align with .env.example in the repo
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: retaildb
+      DB_USER: retailuser
+      DB_PASSWORD: example_user_pwd
+      PORT: "3000"
+      SESSION_SECRET: your-secret-key
+    depends_on:
+      - db
+    networks:
+      - shared2
+
+  db:
+    image: mysql:8.0
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: example_root_pwd
       MYSQL_DATABASE: retaildb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: 123
+      MYSQL_USER: retailuser
+      MYSQL_PASSWORD: example_user_pwd
     volumes:
-      - data2:/var/lib/mysql     
-    
-    ports:
-      - "3306:3306"
+      # Persistent database files
+      - mysql_data:/var/lib/mysql
+      # Auto-run all .sql files on FIRST init
+      - ./sql:/docker-entrypoint-initdb.d:ro
+      # (Optional) also run a single init file if you use it
+      # - ./init-db.sql:/docker-entrypoint-initdb.d/00-init.sql:ro
+    networks:
+      - shared2
+    # (Optional) expose MySQL to your host
+    # ports:
+    #   - "3306:3306"
 
 volumes:
-  data2: {}
+  mysql_data: {}
 
 networks:
   shared2: {}
